@@ -7,7 +7,7 @@ import * as fastify from 'fastify';
 
 require('dotenv').config({ path: path.join(__dirname, '../config') });
 
-import { Server, IncomingMessage, ServerResponse, ServerRequest } from 'http';
+import { Server, IncomingMessage, ServerResponse } from 'http';
 
 import helmet = require('fastify-helmet');
 
@@ -22,7 +22,7 @@ app.register(
 );
 
 app.register(require('fastify-rate-limit'), {
-  max: +process.env.MAX_CONNECTION_PER_MINUTE || 1000,
+  max: +process.env.MAX_CONNECTION_PER_MINUTE || 100000,
   timeWindow: '1 minute'
 });
 
@@ -77,6 +77,7 @@ app.register(require('./plugins/db'), {
       }
     },
     debug: false,
+    acquireConnectionTimeout: 1500000000,
   },
   connectionName: 'db'
 });
@@ -101,7 +102,6 @@ if (process.env.DBHIS_TYPE === 'pg' || process.env.DBHIS_TYPE === 'mssql' || pro
         },
         debug: false,
       },
-
       connectionName: 'dbHIS'
     });
   } else {
@@ -120,6 +120,7 @@ if (process.env.DBHIS_TYPE === 'pg' || process.env.DBHIS_TYPE === 'mssql' || pro
           max: 7
         },
         debug: false,
+        acquireConnectionTimeout: 1500000000,
       },
       connectionName: 'dbHIS'
     });
@@ -138,7 +139,7 @@ if (process.env.DBHIS_TYPE === 'pg' || process.env.DBHIS_TYPE === 'mssql' || pro
       },
       pool: {
         min: 0,
-        max: 7,
+        max: 64,
         afterCreate: (conn, done) => {
           conn.query('SET NAMES utf8', (err) => {
             done(err, conn);
@@ -146,6 +147,7 @@ if (process.env.DBHIS_TYPE === 'pg' || process.env.DBHIS_TYPE === 'mssql' || pro
         }
       },
       debug: false,
+      acquireConnectionTimeout: 1500000000,
     },
     connectionName: 'dbHIS'
   });

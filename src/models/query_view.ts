@@ -1,15 +1,18 @@
-import * as knex from 'knex';
+// import * as knex from 'knex';
+import knex = require('knex');
 
 export class QueryViewsModel {
 
-  viewReport(dbHIS: knex, query: any, params: any) {
-    let sql = query;
-    return dbHIS.raw(sql, params)
+  async viewReport(dbHIS: knex, query: string, params: any) {
+    let sql = `set @datestart = ?; set @dateend =? ;  set @icd10 = ?; SELECT icd10,count(o.vn) as total from ovst as o inner join ovstdx as x on o.vn=x.vn where date(o.vstdttm) between @datestart and @dateend and x.icd10 = @icd10`;
+
+    // let sql = query;
+    return await dbHIS.raw(sql, params)
   }
 
-  viewReportNoParam(dbHIS: knex, query: any) {
+  async viewReportNoParam(dbHIS: knex, query: any) {
     let sql = query;
-    return dbHIS.raw(sql)
+    return await dbHIS.raw(sql)
   }
 
 }
