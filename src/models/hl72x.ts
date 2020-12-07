@@ -8,6 +8,12 @@ export class Hl7Models {
     return data[0];
   }
 
+  async getHn(knex: Knex, hn: any) {
+    console.log(hn);
+    let data = await knex.raw(`select pt.hn,pt.pname,pt.fname,pt.lname from pt where hn = ${hn}`)
+    return data[0];
+  }
+
   async getLastVn(knex: Knex, PID: any) {
     console.log(PID);
     let data = await knex.raw(`select vn from ovst where hn = ${PID} and date(vstdttm) = date(now()) limit 1`)
