@@ -2,6 +2,12 @@ import Knex = require('knex');
 
 export class Hl7Models {
 
+  async getVn(knex: Knex, hn: any) {
+    console.log(hn);
+    let data = await knex.raw(`select vn from ovst where hn = ${hn} and date(vstdttm) = date(now())`)
+    return data[0];
+  }
+
   async getLastVn(knex: Knex, PID: any) {
     console.log(PID);
     let data = await knex.raw(`select vn from ovst where hn = ${PID} and date(vstdttm) = date(now()) limit 1`)
