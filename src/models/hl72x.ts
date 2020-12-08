@@ -10,7 +10,14 @@ export class Hl7Models {
 
   async getHn(knex: Knex, hn: any) {
     console.log(hn);
-    let data = await knex.raw(`select pt.hn,pt.pname,pt.fname,pt.lname from pt where hn = ${hn}`)
+    let data = await knex.raw(`
+    select pt.hn,pt.pname,pt.fname,pt.lname 
+    from ovst 
+    INNER JOIN pt on pt.hn = ovst.hn
+    where ovst.hn = ${hn}
+    and date(ovst.vstdttm) = date(now())
+    ORDER BY ovst.vn DESC limit 1
+    `)
     return data[0];
   }
 
