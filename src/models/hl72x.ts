@@ -4,7 +4,7 @@ export class Hl7Models {
 
   async getVn(knex: Knex, hn: any) {
     console.log(hn);
-    let data = await knex.raw(`select vn from ovst where hn = ${hn} and date(vstdttm) = date(now())`)
+    let data = await knex.raw(`select vn from ovst where hn = ${hn} and date(vstdttm) = date(now()) ORDER BY ovst.vn DESC limit 1`)
     return data[0];
   }
 
