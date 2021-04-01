@@ -22,16 +22,17 @@ const router = (fastify, { }, next) => {
         SYSTOLIC: info.SYSTOLIC,
         PULSE: info.PULSE
     }
+console.log(_info);
 
     try {
       const rs: any = await hl7Models.getVn(db, info.HN);
 
       if (rs[0]) {
-        // console.log(rs);
+        console.log(rs);
 
         rs.forEach(async (v: any) => {
           vn.push(v.vn);
-        //   console.log(vn);
+          console.log(vn);
 
           const rs: any = await hl7Models.updateBP(db, v.vn, _info);
 
