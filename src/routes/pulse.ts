@@ -15,6 +15,8 @@ const router = (fastify, { }, next) => {
 
 
     let info = req.body.rows;
+    console.log(info);
+    
     let vn: any[] = [];
 
     let _info = {
