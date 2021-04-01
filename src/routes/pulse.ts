@@ -16,27 +16,24 @@ const router = (fastify, { }, next) => {
 
     let info = req.body.rows;
     let vn: any[] = [];
-    let bmi = info.WEIGHT / ((info.HEIGHT / 100) * (info.HEIGHT / 100));
-    console.log(info);
-    console.log(bmi);
 
     let _info = {
-      WEIGHT: info.WEIGHT,
-      HEIGHT: info.HEIGHT,
-      BMI: bmi
+        DIASTOLIC: info.DIASTOLIC,
+        SYSTOLIC: info.SYSTOLIC,
+        PULSE: info.PULSE
     }
 
     try {
       const rs: any = await hl7Models.getVn(db, info.HN);
 
       if (rs[0]) {
-        console.log(rs);
+        // console.log(rs);
 
         rs.forEach(async (v: any) => {
           vn.push(v.vn);
-          console.log(vn);
+        //   console.log(vn);
 
-          const rs: any = await hl7Models.updateBW(db, v.vn, _info);
+          const rs: any = await hl7Models.updateBP(db, v.vn, _info);
 
         });
 

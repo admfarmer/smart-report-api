@@ -163,6 +163,7 @@ app.register(require('./routes/query_view'), { prefix: '/v1/showview', logger: t
 app.register(require('./routes/user_type'), { prefix: '/v1/usertype', logger: true });
 app.register(require('./routes/hl7v2x'), { prefix: '/v1/hl7', logger: true });
 app.register(require('./routes/bw_height'), { prefix: '/v1/bw_height', logger: true });
+app.register(require('./routes/pulse'), { prefix: '/v1/pulse', logger: true });
 
 
 app.get('/', async (req: fastify.FastifyRequest<http.IncomingMessage>, reply: fastify.FastifyReply<http.ServerResponse>) => {
