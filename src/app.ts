@@ -165,6 +165,8 @@ app.register(require('./routes/hl7v2x'), { prefix: '/v1/hl7', logger: true });
 app.register(require('./routes/bw_height'), { prefix: '/v1/bw_height', logger: true });
 app.register(require('./routes/pulse'), { prefix: '/v1/pulse', logger: true });
 
+app.register(require('./routes/covid_19_visit'), { prefix: '/v1/covid_visit', logger: true });
+app.register(require('./routes/covid_vaccine'), { prefix: '/v1/covid_vaccine', logger: true });
 
 app.get('/', async (req: fastify.FastifyRequest<http.IncomingMessage>, reply: fastify.FastifyReply<http.ServerResponse>) => {
   reply.code(200).send({ message: 'Welcome to SMART HIS API SMART REPORT HIS!', version: '1.0 build 20190820-1' })
