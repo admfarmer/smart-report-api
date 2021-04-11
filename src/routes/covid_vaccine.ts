@@ -32,7 +32,7 @@ try {
 
 });
 
-  fastify.post('/info', async (req: fastify.Request, reply: fastify.Reply) => {
+  fastify.get('/info', async (req: fastify.Request, reply: fastify.Reply) => {
       console.log('viewVisit19');
       
       const hn = req.query.hn
