@@ -121,7 +121,7 @@ export class CovidVaccineModel {
     let sql = `
     SELECT
     concat('{', e.visit_uuid,'}')  as visit_guid
-    ,,if(length(o.vn)<7,CONCAT(64,o.vn),o.vn) as visit_ref_code
+    ,if(length(o.vn)<7,CONCAT(64,o.vn),o.vn) as visit_ref_code
     ,date_format(o.vstdttm,'%Y-%m-%dT%H:%i:%s.000') as visit_datetime
     ,t.stdcode as claim_fund_pcode
     , 1 as visit_observation
