@@ -128,7 +128,7 @@ try {
             immunization_reaction=[{
                 "visit_immunization_reaction_ref_code":objVaccine.visit_immunization_reaction.visit_immunization_reaction_ref_code|| "" ,
                 "visit_immunization_ref_code":objVaccine.visit_immunization_reaction.visit_immunization_ref_code|| "" ,
-                "report_datetime":moment(objVaccine.visit_immunization_reaction.report_datetime).tz('Asia/Bangkok').format('YYYY-MM-DD HH:mm:ss')|| "" ,
+                "report_datetime":objVaccine.visit_immunization_reaction.report_datetime|| "" ,
                 "reaction_detail_text":objVaccine.visit_immunization_reaction.reaction_detail_text|| "" ,
                 "vaccine_reaction_type_id":objVaccine.visit_immunization_reaction.vaccine_reaction_type_id|| "" ,
                 "reaction_date":moment(objVaccine.visit_immunization_reaction.reaction_date).tz('Asia/Bangkok').format('YYYY-MM-DD')|| "" ,
