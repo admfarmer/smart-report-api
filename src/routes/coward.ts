@@ -49,7 +49,7 @@ const router = (fastify, { }, next) => {
 
   });
 
-  cron.schedule('*/1 * * * *', async function (req: fastify.Request, reply: fastify.Reply) {
+  cron.schedule('*/10 * * * *', async function (req: fastify.Request, reply: fastify.Reply) {
     console.log('running a task every minute');
     const rs: any = await viewsAdmitModel.viewCoWard(dbHIS);
     let info = rs[0];
