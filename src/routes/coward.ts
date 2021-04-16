@@ -69,9 +69,10 @@ const router = (fastify, { }, next) => {
           console.log(rs_info);
           _rs_info.push(rs_info[0])
           _info.push(v);
-          reply.status(HttpStatus.OK).send({ statusCode: HttpStatus.OK, info: _info,rs_info: rs_info });
 
       })
+      reply.status(HttpStatus.OK).send({ statusCode: HttpStatus.OK, info: _info,rs_info: rs_info });
+
     }
 
   })
