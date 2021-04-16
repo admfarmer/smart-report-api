@@ -121,7 +121,7 @@ export class CovidVaccineModel {
     let sql = `
     SELECT
     concat('{', e.visit_uuid,'}')  as visit_guid
-    ,o.vn as visit_ref_code
+    ,,if(length(o.vn)<7,CONCAT(64,o.vn),o.vn) as visit_ref_code
     ,date_format(o.vstdttm,'%Y-%m-%dT%H:%i:%s.000') as visit_datetime
     ,t.stdcode as claim_fund_pcode
     , 1 as visit_observation
@@ -160,7 +160,7 @@ export class CovidVaccineModel {
 
     let sql = `
     SELECT
-    o.vn as visit_immunization_ref_code
+    ,if(length(o.vn)<7,CONCAT(64,o.vn),o.vn) as visit_immunization_ref_code
     ,concat(now()) as immunization_datetime
     ,'C19' as vaccine_code
     ,e.lotno as lot_number
@@ -214,7 +214,7 @@ export class CovidVaccineModel {
     let sql = `
     select 
     v.id as visit_immunization_reaction_ref_code
-    ,e.vn as visit_immunization_ref_code
+    ,if(length(e.vn)<7,CONCAT(64,e.vn),e.vn) as visit_immunization_ref_code
     ,date_format(now(),'%Y-%m-%dT%H:%i:%s.000') as report_datetime
     ,s.vaccine_reaction_symptom_name as reaction_detail_text
     ,0 as vaccine_reaction_type_id
