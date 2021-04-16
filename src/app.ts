@@ -102,7 +102,7 @@ app.register(require('./plugins/db'), {
       }
     },
     debug: false,
-    acquireConnectionTimeout: 150000,
+    acquireConnectionTimeout: 1500000000000,
   },
   connectionName: 'dbCO'
 });
