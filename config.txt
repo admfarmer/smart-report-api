@@ -10,6 +10,11 @@ DBHIS_NAME=hi
 DBHIS_USER=root
 DBHIS_PASSWORD=123456
 
+DBCO_HOST=localhost
+DBCO_PORT=3306
+DBCO_NAME=ipd_paperless
+DBCO_USER=root
+DBCO_PASSWORD=123456
 # เช่น mysql, pg, mssql, oracledb
 DBHIS_TYPE=mysql
 
