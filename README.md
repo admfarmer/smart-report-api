@@ -22,4 +22,6 @@ git commit -m "update"
 
 git pull
 
+npm i
+
 pm2 restart smart-report-api
