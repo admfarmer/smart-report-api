@@ -12,3 +12,14 @@ nano config
 npm i
 
 pm2 start nodemon --name smart-report-api
+
+
+Update
+
+git add .
+
+git commit -m "update"
+
+git pull
+
+pm2 restart smart-report-api
