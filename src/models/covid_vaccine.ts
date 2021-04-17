@@ -102,7 +102,7 @@ export class CovidVaccineModel {
     let sql = `
     select
     a.schedule_id as immunization_plan_schedule_ref_code
-    ,a.fudate as schedule_date
+    ,concat(a.fudate,'T007:00:00.000') as schedule_date
     ,a.treat_no as treatment_number
 	,b.plan_name as schedule_description
 	,IF(a.treat_no=1,'Y','N') as complete
