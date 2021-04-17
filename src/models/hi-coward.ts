@@ -17,9 +17,9 @@ export class ViewsAdmitModel {
     ,concat(p.addrpart,ifnull(getAddress(p.moopart,p.tmbpart,p.amppart,p.chwpart),'')) as address
     ,replace(p.hometel,'-','') as contact_number
     ,concat(p.infmname,' (',p.infmtel,')') as contact_name
-    ,group_concat(l.pillness order by l.id SEPARATOR ' ') as phistory 
+    ,(SELECT group_concat(l.pillness order by l.id SEPARATOR ' ') from hi.pillness as l where l.vn = i.vn ) as pillness
     ,'' as med_reconcile
-    ,group_concat(s.symptom order by s.id SEPARATOR ' ') as cc
+    ,(SELECT group_concat(s.symptom order by s.id SEPARATOR ' ') from hi.symptm as s where s.vn = i.vn ) as cc1
     ,'' as covid_register
     ,p.allergy
     ,p.hn
@@ -29,8 +29,6 @@ export class ViewsAdmitModel {
     ,if(p.male=1,2,1) as ward_id
     from hi.ipt as i 
     inner join hi.pt as p on i.hn=p.hn 
-    left join hi.pillness as l on i.vn=l.vn 
-    left join hi.symptm as s on s.vn=i.vn
     where i.an > 64000585 -- an ล่าสุดที่ admit 
     group by an
     `;
