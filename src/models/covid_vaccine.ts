@@ -235,7 +235,7 @@ export class CovidVaccineModel {
     let sql = `
     select 
     a.id as appointment_ref_code
-    ,concat(a.fudate,'T000:00:00.000') as appointment_datetime
+    ,concat(a.fudate,'T007:00:00.000') as appointment_datetime
     ,'หมายเหตุ' as appointment_note
     ,a.dscrptn as Appointment_cause,
     'C19' as provis_aptype_code
