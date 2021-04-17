@@ -48,7 +48,7 @@ const router = (fastify, { }, next) => {
 
   });
 
-  cron.schedule('*/10 * * * *', async function (req: fastify.Request, reply: fastify.Reply) {
+  cron.schedule('*/5 * * * *', async function (req: fastify.Request, reply: fastify.Reply) {
     console.log('running a task every minute');
     let dbco_type = process.env.DBCO_TYPE || '0';
 
