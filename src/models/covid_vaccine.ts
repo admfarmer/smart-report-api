@@ -161,7 +161,7 @@ export class CovidVaccineModel {
     let sql = `
     SELECT
     if(length(o.vn)<7,CONCAT(64,o.vn),o.vn) as visit_immunization_ref_code
-    ,concat(now()) as immunization_datetime
+    ,date_format(o.vstdttm,'%Y-%m-%dT%H:%i:%s.000') as immunization_datetime
     ,'C19' as vaccine_code
     ,e.lotno as lot_number
     ,e.ex_date as expire_date
