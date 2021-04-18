@@ -88,7 +88,7 @@ export class CovidVaccineModel {
     inner join 
     epi as e on o.vn=e.vn  
     inner join 
-    hpt as h on e.vac=h.codehpt
+    hpt as h on e.vac=h.codehpt and h.vac in ('CA1','CA2','CS1','CS2')
     inner join 
     dct as d on d.cid=p.provider 
     where p.hn='${hn}'
@@ -184,7 +184,7 @@ export class CovidVaccineModel {
     inner join 
     epi as e on o.vn = e.vn
     inner join 
-    hpt as h on e.vac=h.codehpt
+    hpt as h on e.vac=h.codehpt and h.vac in ('CA1','CA2','CS1','CS2')
     inner join
     plan_treat as p on o.vn=p.vn  
     inner join 
