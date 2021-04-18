@@ -1,6 +1,10 @@
 
 # smart-report-api
 
+npm i -g typescript
+
+npm i -g ts-node
+
 git clone https://github.com/admfarmer/smart-report-api.git
 
 cd smart-report-api
