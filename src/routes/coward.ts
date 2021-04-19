@@ -20,41 +20,40 @@ const router = (fastify, { }, next) => {
   });
 
   fastify.get('/info', async (req: fastify.Request, reply: fastify.Reply) => {
-    // try {
-      let dbco_type = process.env.DBCO_TYPE || '0';
+    let dbco_type = process.env.DBCO_TYPE || '0';
 
-      if(dbco_type == '1'){
-          const rs: any = await viewsAdmitModel.viewCoWard(dbHIS);
-          let info = rs[0];
-          let _info = [];
-          let rs_info: any;
-          let _rs_info = [];
-      
-          if(info){
-            info.forEach(async (v: any) => {
-                console.log(v);
-              try {
-                      rs_info = await admissionModels.insert(dbCO,v);
-                  } catch (error) {
-                  fastify.log.error(error);
-                  // reply.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR) })
-                  }
-                console.log(rs_info);
-                _rs_info.push(rs_info[0])
-                _info.push(v);
-      
-            })
-            reply.status(HttpStatus.OK).send({ statusCode: HttpStatus.OK, info: _info,rs_info: rs_info });
-      
-          }
-      }else{
-          console.log('running Not');
-          
-      }
+    if(dbco_type == '1'){
+        const rs: any = await viewsAdmitModel.viewCoWard(dbHIS);
+        let info = rs[0];
+        let _info = [];
+        let rs_info: any;
+        let _rs_info = [];
+    
+        if(info){
+          info.forEach(async (v: any) => {
+              console.log(v);
+            try {
+                    rs_info = await admissionModels.insert(dbCO,v);
+                } catch (error) {
+                fastify.log.error(error);
+                // reply.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR) })
+                }
+              console.log(rs_info);
+              _rs_info.push(rs_info[0])
+              _info.push(v);
+    
+          })
+          reply.status(HttpStatus.OK).send({ statusCode: HttpStatus.OK, info: _info,rs_info: rs_info });
+    
+        }
+    }else{
+        console.log('running Not');
+        
+    }
 
   });
 
-  cron.schedule('*/5 * * * *', async function (req: fastify.Request, reply: fastify.Reply) {
+  cron.schedule('*/1 * * * *', async function (req: fastify.Request, reply: fastify.Reply) {
     console.log('running a task every minute');
     let dbco_type = process.env.DBCO_TYPE || '0';
 

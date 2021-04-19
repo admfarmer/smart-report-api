@@ -17,9 +17,9 @@ export class ViewsAdmitModel {
     ,concat(p.addrpart,ifnull(getAddress(p.moopart,p.tmbpart,p.amppart,p.chwpart),'')) as address
     ,replace(p.hometel,'-','') as contact_number
     ,concat(p.infmname,' (',p.infmtel,')') as contact_name
-    ,(SELECT group_concat(l.pillness order by l.id SEPARATOR ' ') from hi.pillness as l where l.vn = i.vn ) as pillness
+    ,(SELECT group_concat(l.pillness order by l.id SEPARATOR ' ') from hi.pillness as l where l.vn = i.vn ) as phistory
     ,'' as med_reconcile
-    ,(SELECT group_concat(s.symptom order by s.id SEPARATOR ' ') from hi.symptm as s where s.vn = i.vn ) as cc1
+    ,(SELECT group_concat(s.symptom order by s.id SEPARATOR ' ') from hi.symptm as s where s.vn = i.vn ) as cc
     ,'' as covid_register
     ,p.allergy
     ,p.hn
