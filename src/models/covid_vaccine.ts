@@ -164,7 +164,7 @@ export class CovidVaccineModel {
     ,date_format(o.vstdttm,'%Y-%m-%dT%H:%i:%s.000') as immunization_datetime
     ,'C19' as vaccine_code
     ,e.lotno as lot_number
-    ,e.ex_date as expire_date
+    ,e.ex_date as expiration_date
     ,'' as vaccine_note
     ,h.namehpt as vaccine_ref_name
     ,e.serial_no as serial_no
