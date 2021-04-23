@@ -21,9 +21,16 @@ const router = (fastify, { }, next) => {
 
   fastify.get('/info', async (req: fastify.Request, reply: fastify.Reply) => {
     let dbco_type = process.env.DBCO_TYPE || '0';
+    let an:any;
+    let rs_an:any;
 
     if(dbco_type == '1'){
-        const rs: any = await viewsAdmitModel.viewCoWard(dbHIS);
+      rs_an = await admissionModels.viewAdmissionAN(dbCO);
+      // console.log(rs_an[0]);
+      an = rs_an[0][0];
+      console.log('an :',an.an);
+    
+        const rs: any = await viewsAdmitModel.viewCoWard(dbHIS,an.an);
         let info = rs[0];
         let _info = [];
         let rs_info: any;
@@ -53,12 +60,15 @@ const router = (fastify, { }, next) => {
 
   });
 
-  cron.schedule('*/1 * * * *', async function (req: fastify.Request, reply: fastify.Reply) {
+  cron.schedule('*/60 * * * *', async function (req: fastify.Request, reply: fastify.Reply) {
     console.log('running a task every minute');
     let dbco_type = process.env.DBCO_TYPE || '0';
-
+    let an:any;
+    let rs_an:any;
     if(dbco_type == '1'){
-        const rs: any = await viewsAdmitModel.viewCoWard(dbHIS);
+        rs_an = await admissionModels.viewAdmissionAN(dbCO);
+        an = rs_an[0][0];
+        const rs: any = await viewsAdmitModel.viewCoWard(dbHIS,an.an);
         let info = rs[0];
         let _info = [];
         let rs_info: any;

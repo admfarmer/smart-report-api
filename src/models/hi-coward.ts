@@ -3,7 +3,7 @@ import knex = require('knex');
 
 export class ViewsAdmitModel {
 
-  async viewCoWard(dbHIS: knex) {
+  async viewCoWard(dbHIS: knex,an:any) {
 
     let sql = `
     select 
@@ -29,7 +29,7 @@ export class ViewsAdmitModel {
     ,if(p.male=1,2,1) as ward_id
     from hi.ipt as i 
     inner join hi.pt as p on i.hn=p.hn 
-    where i.an > 64000592 -- an ล่าสุดที่ admit 
+    where i.an > ${an} -- an ล่าสุดที่ admit 
     group by an
     `;
     return await dbHIS.raw(sql)

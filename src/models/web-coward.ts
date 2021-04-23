@@ -7,4 +7,12 @@ export class AdmissionModels {
       .insert(info);
   }
 
+  async viewAdmissionAN(knex: Knex) {
+
+    let sql = `
+      SELECT an FROM admission ORDER BY an DESC  limit 1
+    `;
+    return await knex.raw(sql)
+  }
+
 }

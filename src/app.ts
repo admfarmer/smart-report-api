@@ -77,7 +77,7 @@ app.register(require('./plugins/db'), {
       }
     },
     debug: false,
-    acquireConnectionTimeout: 1500000000,
+    acquireConnectionTimeout: 1500000,
   },
   connectionName: 'db'
 });
@@ -102,7 +102,7 @@ app.register(require('./plugins/db'), {
       }
     },
     debug: false,
-    acquireConnectionTimeout: 1500000000000,
+    acquireConnectionTimeout: 1500000,
   },
   connectionName: 'dbCO'
 });
@@ -145,7 +145,7 @@ if (process.env.DBHIS_TYPE === 'pg' || process.env.DBHIS_TYPE === 'mssql' || pro
           max: 7
         },
         debug: false,
-        acquireConnectionTimeout: 1500000000,
+        acquireConnectionTimeout: 1500000,
       },
       connectionName: 'dbHIS'
     });
@@ -172,7 +172,7 @@ if (process.env.DBHIS_TYPE === 'pg' || process.env.DBHIS_TYPE === 'mssql' || pro
         }
       },
       debug: false,
-      acquireConnectionTimeout: 1500000000,
+      acquireConnectionTimeout: 1500000,
     },
     connectionName: 'dbHIS'
   });
