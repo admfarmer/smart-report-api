@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { Server, IncomingMessage, ServerResponse, ServerRequest } from 'http';
+import { Server, IncomingMessage, ServerResponse } from 'http';
 import * as Knex from 'knex'
 
 declare module 'fastify' {
