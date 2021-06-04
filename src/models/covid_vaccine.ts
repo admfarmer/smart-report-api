@@ -7,7 +7,7 @@ export class CovidVaccineModel {
 
     let sql = `
     select 
-    pop_id as cid
+    if(pt.ntnlty=99, pt.pop_id,pt.cidmophic)  as cid
     ,passport as passport_no
     ,hn
     , concat('{',pt_guid,'}') as patient_guid
