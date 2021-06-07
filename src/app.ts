@@ -7,7 +7,7 @@ import * as fastify from 'fastify';
 
 require('dotenv').config({ path: path.join(__dirname, '../config') });
 
-import { Server, IncomingMessage, ServerResponse } from 'http';
+import { Server, IncomingMessage, ServerResponse ,ServerOptions } from 'http';
 
 import helmet = require('fastify-helmet');
 
