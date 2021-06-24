@@ -78,8 +78,9 @@ const router = (fastify, { }, next) => {
           info.forEach(async (v: any) => {
               console.log(v);
             try {
-                    rs_info = await admissionModels.insert(dbCO,v);
-                } catch (error) {
+              rs_info = await admissionModels.insertAdmission(dbCO,v);
+              // rs_info = await admissionModels.insert(dbCO,v);
+            } catch (error) {
                 fastify.log.error(error);
                 // reply.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR) })
                 }
