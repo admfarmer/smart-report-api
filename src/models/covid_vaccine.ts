@@ -216,7 +216,7 @@ export class CovidVaccineModel {
     v.id as visit_immunization_reaction_ref_code
     ,if(length(e.vn)<7,CONCAT(64,e.vn),e.vn) as visit_immunization_ref_code
     ,date_format(now(),'%Y-%m-%dT%H:%i:%s.000') as report_datetime
-    ,s.vaccine_reaction_symptom_name as reaction_detail_text
+    , if(v.vacc_symtp =10, v.pronote,s.vaccine_reaction_symptom_name) as reaction_detail_text
     ,0 as vaccine_reaction_type_id
     ,date_format(now(),'%Y-%m-%d') as reaction_date
     ,v.vacc_stage as vaccine_reaction_stage_id
