@@ -254,7 +254,7 @@ export class CovidVaccineModel {
     s.schedule_id as appointment_ref_code
     ,concat(s.fudate,'T007:00:00.000') as appointment_datetime
     ,'หมายเหตุ' as appointment_note
-    ,'นัดฉีดวัคซีนเข็มที่' as Appointment_cause,
+    ,'นัดฉีดวัคซีนเข็มที่2' as Appointment_cause,
     'C19' as provis_aptype_code
     FROM plan_treat as p 
     inner join schedules AS s on p.plan_id=s.plan_id  
