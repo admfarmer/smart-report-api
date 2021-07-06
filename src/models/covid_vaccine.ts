@@ -230,22 +230,38 @@ export class CovidVaccineModel {
     return await dbHIS.raw(sql)
   }
 
+  // async appointment(dbHIS: knex, vn: any) {
+
+  //   let sql = `
+  //   select 
+  //   a.id as appointment_ref_code
+  //   ,concat(a.fudate,'T007:00:00.000') as appointment_datetime
+  //   ,'หมายเหตุ' as appointment_note
+  //   ,a.dscrptn as Appointment_cause,
+  //   'C19' as provis_aptype_code
+  //   from 
+  //   oapp as a 
+  //   where a.vn = '${vn}'
+  //   `;
+
+  //   return await dbHIS.raw(sql)
+  // }
+
   async appointment(dbHIS: knex, vn: any) {
 
     let sql = `
-    select 
-    a.id as appointment_ref_code
-    ,concat(a.fudate,'T007:00:00.000') as appointment_datetime
+    SELECT  
+    s.schedule_id as appointment_ref_code
+    ,concat(s.fudate,'T007:00:00.000') as appointment_datetime
     ,'หมายเหตุ' as appointment_note
-    ,a.dscrptn as Appointment_cause,
+    ,'นัดฉีดวัคซีนเข็มที่' as Appointment_cause,
     'C19' as provis_aptype_code
-    from 
-    oapp as a 
-    where a.vn = '${vn}'
+    FROM plan_treat as p 
+    inner join schedules AS s on p.plan_id=s.plan_id  
+    where p.vn ='${vn}' and s.treat_no = '2' 
     `;
 
     return await dbHIS.raw(sql)
   }
-
 }
 
