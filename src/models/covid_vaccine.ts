@@ -11,7 +11,7 @@ export class CovidVaccineModel {
     ,passport as passport_no
     ,hn
     , concat('{',pt_guid,'}') as patient_guid
-    ,getPname(pt.male,timestampdiff(year,pt.brthdate,now()),pt.mrtlst) as prefix
+    ,IF(pt.pname!='',pt.pname,getPname(pt.male,timestampdiff(year,pt.brthdate,now()),pt.mrtlst)) as prefix
     ,fname as first_name
     ,lname as last_name
     ,engpname as prefix_eng
