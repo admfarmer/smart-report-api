@@ -171,22 +171,21 @@ export class CovidVaccineModel {
     ,e.serial_no as serial_no
     ,s.treat_no as vaccine_plan_no
     ,(case when h.vac in ('CA1','CA2') then 1 
-		case when h.vac in ('CN1','CN2') then 2
-		case when h.vac in ('CJ1','CJ2') then 3
-		case when h.vac in ('CG1','CG2') then 4
-		case when h.vac in ('CM1','CM2') then 5
-		case when h.vac in ('CP1','CP2') then 6
-		case when h.vac in ('CS1','CS2') then 7
+		when h.vac in ('CN1','CN2') then 2
+		when h.vac in ('CJ1','CJ2') then 3
+		when h.vac in ('CG1','CG2') then 4
+		when h.vac in ('CM1','CM2') then 5
+		when h.vac in ('CP1','CP2') then 6
+		when h.vac in ('CS1','CS2') then 7
     when h.vac in ('CI1','CI2') then 8
-    end)
-    as vaccine_manufacturer_id
+    end) as vaccine_manufacturer_id
     ,(case when h.vac in ('CA1','CA2') then 'AstraZeneca' 
-		case when h.vac in ('CN1','CN2') then 'Novavax'
-		case when h.vac in ('CJ1','CJ2') then 'Johnson & Johnson' 
-		case when h.vac in ('CG1','CG2') then 'Sanofi, GlaxoSmithKline' 
-		case when h.vac in ('CM1','CM2') then 'Moderna' 
-		case when h.vac in ('CP1','CP2') then 'Pfizer, BioNTech' 
-		case when h.vac in ('CS1','CS2') then 'Sinovac Life Sciences' 
+		when h.vac in ('CN1','CN2') then 'Novavax'
+		when h.vac in ('CJ1','CJ2') then 'Johnson & Johnson' 
+		when h.vac in ('CG1','CG2') then 'Sanofi, GlaxoSmithKline' 
+		when h.vac in ('CM1','CM2') then 'Moderna' 
+		when h.vac in ('CP1','CP2') then 'Pfizer, BioNTech' 
+		when h.vac in ('CS1','CS2') then 'Sinovac Life Sciences' 
     when h.vac in ('CI1','CI2') then 'Sinopharm' 
     end) as vaccine_manufacturer
     ,p.plan_id as immunization_plan_ref_code
@@ -197,8 +196,7 @@ export class CovidVaccineModel {
     inner join 
     epi as e on o.vn = e.vn
     inner join 
-    hpt as h on e.vac=h.codehpt 
-		and h.vac in ('CA1','CA2','CN1','CN2','CJ1','CJ2','CG1','CG2','CM1','CM2','CP1','CP2','CS1','CS2','CI1','CI2')
+    hpt as h on e.vac=h.codehpt and h.vac in ('CA1','CA2','CN1','CN2','CJ1','CJ2','CG1','CG2','CM1','CM2','CP1','CP2','CS1','CS2','CI1','CI2')
     inner join
     plan_treat as p on o.vn=p.vn  
     inner join 
