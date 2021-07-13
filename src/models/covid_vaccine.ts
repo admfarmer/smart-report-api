@@ -89,7 +89,8 @@ export class CovidVaccineModel {
     epi as e on o.vn=e.vn  
     inner join 
     hpt as h on e.vac=h.codehpt 
-		and h.vac in ('CA1','CA2','CN1','CN2','CJ1','CJ2','CG1','CG2','CM1','CM2','CP1','CP2','CS1','CS2','CI1','CI2')
+		-- and h.vac in ('CA1','CA2','CN1','CN2','CJ1','CJ2','CG1','CG2','CM1','CM2','CP1','CP2','CS1','CS2','CI1','CI2')
+    and h.icd10 = 'U119'
     inner join 
     dct as d on d.cid=p.provider 
     where p.hn='${hn}'
@@ -196,7 +197,9 @@ export class CovidVaccineModel {
     inner join 
     epi as e on o.vn = e.vn
     inner join 
-    hpt as h on e.vac=h.codehpt and h.vac in ('CA1','CA2','CN1','CN2','CJ1','CJ2','CG1','CG2','CM1','CM2','CP1','CP2','CS1','CS2','CI1','CI2')
+    hpt as h on e.vac=h.codehpt 
+    -- and h.vac in ('CA1','CA2','CN1','CN2','CJ1','CJ2','CG1','CG2','CM1','CM2','CP1','CP2','CS1','CS2','CI1','CI2')
+    and h.icd10 = 'U119'
     inner join
     plan_treat as p on o.vn=p.vn  
     inner join 
