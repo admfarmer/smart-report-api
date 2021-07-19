@@ -30,6 +30,7 @@ export class ViewsAdmitModel {
     from hi.ipt as i 
     inner join hi.pt as p on i.hn=p.hn 
     where i.an > ${an} -- an ล่าสุดที่ admit 
+    and i.prediag in ('U071','J171')
     group by an
     `;
     return await dbHIS.raw(sql)
