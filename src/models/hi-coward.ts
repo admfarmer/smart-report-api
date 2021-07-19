@@ -28,9 +28,10 @@ export class ViewsAdmitModel {
     ,'' as bed
     ,if(p.male=1,2,1) as ward_id
     from hi.ipt as i 
+    inner join hi.iptdx as iptdx on iptdx.an = i.an 
     inner join hi.pt as p on i.hn=p.hn 
     where i.an > ${an} -- an ล่าสุดที่ admit 
-    and i.prediag in ('U071','J171')
+    and iptdx.icd10 in ('U071')
     group by an
     `;
     return await dbHIS.raw(sql)
