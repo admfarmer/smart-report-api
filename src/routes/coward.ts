@@ -153,7 +153,6 @@ const router = (fastify, { }, next) => {
               if(!rs_[0][0]){
                 rs_info = await admissionModels.insertAdmission(dbCO,data);
               }
-
               // rs_info = await admissionModels.insert(dbCO,v);
             } catch (error) {
                 fastify.log.error(error);
