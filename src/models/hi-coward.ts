@@ -26,6 +26,7 @@ export class ViewsAdmitModel {
     ,'0' as is_admit
     ,'' as bed
     ,if(p.male=1,2,1) as ward_id
+    ,i.rgtdate as admission_date
     from hi.ipt as i 
     inner join hi.iptdx as iptdx on iptdx.an = i.an 
     inner join hi.pt as p on i.hn=p.hn 
@@ -59,6 +60,7 @@ export class ViewsAdmitModel {
     ,'0' as is_admit
     ,'' as bed
     ,'5' as ward_id
+    ,date(o.vstdttm) as vstdttm
     from ovst as o
 		inner join xryrgt on xryrgt.vn=o.vn 
     inner join xryrqt on xryrqt.vn=o.vn

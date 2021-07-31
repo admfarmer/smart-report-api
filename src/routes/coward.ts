@@ -106,9 +106,9 @@ const router = (fastify, { }, next) => {
       console.log('running dbco_type_ci');
       rs_hn = await admissionModels.viewAdmissionHn(dbCO);
       hn = rs_hn[0][0].hn;
-      let _an_ = rs_hn[0][0].an;
+      let _an_:number = rs_hn[0][0].an;
       const rs_vn: any = await viewsAdmitModel.viewCoWardVn(dbHIS,hn);
-      // console.log(rs_vn[0].vn);
+      console.log(_an_);
       let _vn = rs_vn[0][0];
       // console.log(_vn);
       let _vn_ = _vn.vn
@@ -125,7 +125,7 @@ const router = (fastify, { }, next) => {
           info.forEach(async (v: any) => {
               console.log(v);
               let data = {
-                an:_an_++,
+                an:+_an_++,
                 pname:v.pname,
                 fname:v.fname,
                 lname:v.lname,
@@ -146,12 +146,19 @@ const router = (fastify, { }, next) => {
                 bed:v.bed,
                 ward_id:v.ward_id
               }
+
+              let i = {
+                an:+_an_++,
+                cxr_date:v.vstdttm
+              }
+
             try {
               
               let rs_ = await admissionModels.viewAdmission_is_admit(dbCO,v.hn);
               
               if(!rs_[0][0]){
                 rs_info = await admissionModels.insertAdmission(dbCO,data);
+                let rs_xray = await admissionModels.insertXrayOpd(dbCO,i);
               }
               // rs_info = await admissionModels.insert(dbCO,v);
             } catch (error) {
