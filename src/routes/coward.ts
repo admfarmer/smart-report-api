@@ -123,9 +123,10 @@ const router = (fastify, { }, next) => {
     
         if(info){
           info.forEach(async (v: any) => {
+            let _an = +_an_++
               console.log(v);
               let data = {
-                an:+_an_++,
+                an:_an,
                 pname:v.pname,
                 fname:v.fname,
                 lname:v.lname,
@@ -148,7 +149,7 @@ const router = (fastify, { }, next) => {
               }
 
               let i = {
-                an:+_an_++,
+                an:_an,
                 cxr_date:v.vstdttm
               }
 
