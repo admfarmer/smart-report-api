@@ -141,7 +141,7 @@ const router = (fastify, { }, next) => {
     } else {
       console.log('running Not dbco_type_ci');
     }
-    if(info_admit && info_admit){
+    if(info_admit && info_ci){
       reply.status(HttpStatus.OK).send({ statusCode: HttpStatus.OK, info_admit: info_admit, info_ci: info_ci });
     }
 
