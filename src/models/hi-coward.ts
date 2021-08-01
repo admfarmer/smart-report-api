@@ -37,10 +37,10 @@ export class ViewsAdmitModel {
     return await dbHIS.raw(sql)
   }
 
-  async viewCoWardOpd(dbHIS: knex,vn:any) {
+  async viewCoWardOpd(dbHIS: knex) {
     let sql = `
-    select 
-		o.an
+    select
+    o.vn as an
 		,if(p.pname='',getPname(p.male,timestampdiff(year,p.brthdate,now()),p.mrtlst),p.pname) as pname
     ,p.fname
     ,p.lname
@@ -69,7 +69,7 @@ export class ViewsAdmitModel {
     where o.an < 1
     and ovstdx.icd10 in ('U071','U129') 
 		and (xryrgt.xrycode = '0147' or xryrqt.xrycode = '0147')
-		and o.vn > '${vn}'
+		and date(o.vstdttm) = CURRENT_DATE
     group by o.hn ORDER BY o.vn
     `;
     return await dbHIS.raw(sql)

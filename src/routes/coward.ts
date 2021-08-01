@@ -26,10 +26,8 @@ const router = (fastify, { }, next) => {
     let rs_an: any;
     let hn: any;
     let rs_hn: any;
-
-    let info_admit:any[]=[];
-    let info_ci:any[]=[];
-    
+    let info_admit: any[]=[];
+    let info_ci: any[]=[];
 
     if (dbco_type == '1') {
       console.log('running dbco_type');
@@ -44,7 +42,7 @@ const router = (fastify, { }, next) => {
 
       if (info) {
         info.forEach(async (v: any) => {
-          console.log(v);
+          // console.log(v);
           try {
             rs_info = await admissionModels.insertAdmission(dbCO, v);
             // rs_info = await admissionModels.insert(dbCO,v);
@@ -66,17 +64,17 @@ const router = (fastify, { }, next) => {
 
     if (dbco_type_ci == '1') {
       console.log('running dbco_type_ci');
-      rs_hn = await admissionModels.viewAdmissionHn(dbCO);
-      hn = rs_hn[0][0].hn;
-      let _an_: number = rs_hn[0][0].an;
-      const rs_vn: any = await viewsAdmitModel.viewCoWardVn(dbHIS, hn);
-      console.log(_an_);
-      let _vn = rs_vn[0][0];
-      // console.log(_vn);
-      let _vn_ = _vn.vn
-      // console.log(_vn_);
-      if (rs_vn[0]) {
-        const rs: any = await viewsAdmitModel.viewCoWardOpd(dbHIS, _vn_);
+      // rs_hn = await admissionModels.viewAdmissionHn(dbCO);
+      // hn = rs_hn[0][0].hn;
+      // let _an_: number = rs_hn[0][0].an;
+      // const rs_vn: any = await viewsAdmitModel.viewCoWardVn(dbHIS, hn);
+      // console.log(_an_);
+      // let _vn = rs_vn[0][0];
+      // // console.log(_vn);
+      // let _vn_ = _vn.vn
+      // // console.log(_vn_);
+      // if (rs_vn[0]) {
+        const rs: any = await viewsAdmitModel.viewCoWardOpd(dbHIS);
         let info = rs[0];
         let _info = [];
         let rs_info: any;
@@ -85,10 +83,9 @@ const router = (fastify, { }, next) => {
 
         if (info) {
           info.forEach(async (v: any) => {
-            let _an = +_an_++
-            console.log(v);
+            // console.log(v);
             let data = {
-              an: _an,
+              an: v.an,
               pname: v.pname,
               fname: v.fname,
               lname: v.lname,
@@ -111,7 +108,7 @@ const router = (fastify, { }, next) => {
             }
 
             let i = {
-              an: _an,
+              an: v.an,
               cxr_date: v.vstdttm
             }
 
@@ -133,14 +130,14 @@ const router = (fastify, { }, next) => {
             info_ci.push(v);
 
           })
-          // reply.status(HttpStatus.OK).send({ statusCode: HttpStatus.OK, info_admit: info_admit, info_ci: info_ci });
+          // reply.status(HttpStatus.OK).send({ statusCode: HttpStatus.OK, info: _info,rs_info: rs_info });
         }
       } else {
         console.log('running Not rs_vn');
       }
-    } else {
-      console.log('running Not dbco_type_ci');
-    }
+    // } else {
+    //   console.log('running Not dbco_type_ci');
+    // }
     if(info_admit && info_ci){
       reply.status(HttpStatus.OK).send({ statusCode: HttpStatus.OK, info_admit: info_admit, info_ci: info_ci });
     }
@@ -155,6 +152,9 @@ const router = (fastify, { }, next) => {
     let rs_an: any;
     let hn: any;
     let rs_hn: any;
+    let info_admit: any[]=[];
+    let info_ci: any[]=[];
+
 
     if (dbco_type == '1') {
       console.log('running dbco_type');
@@ -169,7 +169,7 @@ const router = (fastify, { }, next) => {
 
       if (info) {
         info.forEach(async (v: any) => {
-          console.log(v);
+          // console.log(v);
           try {
             rs_info = await admissionModels.insertAdmission(dbCO, v);
             // rs_info = await admissionModels.insert(dbCO,v);
@@ -179,7 +179,7 @@ const router = (fastify, { }, next) => {
           }
           // console.log(rs_info);
           // _rs_info.push(rs_info[0])
-          // _info.push(v);
+          // info_admit.push(v);
         })
         // reply.status(HttpStatus.OK).send({ statusCode: HttpStatus.OK, info: _info,rs_info: rs_info });
       } else {
@@ -191,17 +191,17 @@ const router = (fastify, { }, next) => {
 
     if (dbco_type_ci == '1') {
       console.log('running dbco_type_ci');
-      rs_hn = await admissionModels.viewAdmissionHn(dbCO);
-      hn = rs_hn[0][0].hn;
-      let _an_: number = rs_hn[0][0].an;
-      const rs_vn: any = await viewsAdmitModel.viewCoWardVn(dbHIS, hn);
-      console.log(_an_);
-      let _vn = rs_vn[0][0];
-      // console.log(_vn);
-      let _vn_ = _vn.vn
-      // console.log(_vn_);
-      if (rs_vn[0]) {
-        const rs: any = await viewsAdmitModel.viewCoWardOpd(dbHIS, _vn_);
+      // rs_hn = await admissionModels.viewAdmissionHn(dbCO);
+      // hn = rs_hn[0][0].hn;
+      // let _an_: number = rs_hn[0][0].an;
+      // const rs_vn: any = await viewsAdmitModel.viewCoWardVn(dbHIS, hn);
+      // console.log(_an_);
+      // let _vn = rs_vn[0][0];
+      // // console.log(_vn);
+      // let _vn_ = _vn.vn
+      // // console.log(_vn_);
+      // if (rs_vn[0]) {
+        const rs: any = await viewsAdmitModel.viewCoWardOpd(dbHIS);
         let info = rs[0];
         let _info = [];
         let rs_info: any;
@@ -210,10 +210,9 @@ const router = (fastify, { }, next) => {
 
         if (info) {
           info.forEach(async (v: any) => {
-            let _an = +_an_++
-            console.log(v);
+            // console.log(v);
             let data = {
-              an: _an,
+              an: v.an,
               pname: v.pname,
               fname: v.fname,
               lname: v.lname,
@@ -236,7 +235,7 @@ const router = (fastify, { }, next) => {
             }
 
             let i = {
-              an: _an,
+              an: v.an,
               cxr_date: v.vstdttm
             }
 
@@ -255,7 +254,7 @@ const router = (fastify, { }, next) => {
             }
             // console.log(rs_info);
             // _rs_info.push(rs_info[0])
-            // _info.push(v);
+            // info_ci.push(v);
 
           })
           // reply.status(HttpStatus.OK).send({ statusCode: HttpStatus.OK, info: _info,rs_info: rs_info });
@@ -263,8 +262,11 @@ const router = (fastify, { }, next) => {
       } else {
         console.log('running Not rs_vn');
       }
-    } else {
-      console.log('running Not dbco_type_ci');
+    // } else {
+    //   console.log('running Not dbco_type_ci');
+    // }
+    if(info_admit && info_ci){
+      reply.status(HttpStatus.OK).send({ statusCode: HttpStatus.OK, info_admit: info_admit, info_ci: info_ci });
     }
   })
 
