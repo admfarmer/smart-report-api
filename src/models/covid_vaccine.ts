@@ -144,11 +144,11 @@ export class CovidVaccineModel {
 
     let sql = `
     SELECT 
-    o.sbp as systolic_blood_pressure
-    ,o.dbp as diastolic_blood_pressure
+    if(o.sbp=0,120,o.sbp) as systolic_blood_pressure
+    ,if(o.dbp=0,80,o.dbp) as diastolic_blood_pressure
     ,o.bw as body_weight_kg
     ,o.height as body_height_cm
-    ,o.tt as temperature
+    ,if(o.tt=0,36.5,o.tt) as temperature
     FROM ovst as o
     inner join epi as e on o.vn = e.vn
     inner join pttype as t on o.pttype=t.pttype
