@@ -196,7 +196,7 @@ app.register(require('./routes/covid_vaccine'), { prefix: '/v1/covid_vaccine', l
 app.register(require('./routes/coward'), { prefix: '/v1/coward', logger: true });
 
 app.get('/', async (req: fastify.FastifyRequest<http.IncomingMessage>, reply: fastify.FastifyReply<http.ServerResponse>) => {
-  reply.code(200).send({ message: 'Welcome to SMART HIS API SMART REPORT HIS!', version: '1.0 build 20190820-1' })
+  reply.code(200).send({ message: 'Welcome to SMART HIS API SMART REPORT HIS!', version: '2.1 build 2021-08-04' })
 });
 
 const port = +process.env.HTTP_PORT || 3005;
