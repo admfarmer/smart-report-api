@@ -11,7 +11,7 @@ const router = (fastify, { }, next) => {
   var db: knex = fastify.db;
 
   fastify.get('/', async (req: fastify.Request, reply: fastify.Reply) => {
-    reply.code(200).send({ message: 'Welcome to SMART HIS API SMART REPORT HIS!', version: '1.0 build 20190820-1' })
+    reply.code(200).send({ message: 'Welcome to SMART HIS API SMART REPORT HIS!', version: '2.1 build 2021-08-04' })
   });
 
   fastify.get('/info', async (req: fastify.Request, reply: fastify.Reply) => {
