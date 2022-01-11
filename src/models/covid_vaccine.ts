@@ -279,5 +279,24 @@ export class CovidVaccineModel {
 
     return await dbHIS.raw(sql)
   }
+
+  async lab(dbHIS: knex, hn: any) {
+
+    let sql = `
+    SELECT lb.senddate AS report_datetime,lb.ln AS patient_lab_ref_code,
+    l.labname AS patient_lab_name_ref ,r.normal AS patient_lab_normal_value_ref,
+    l.tmlt AS tmlt_code,r.labresult AS patient_lab_result_text
+
+    FROM lbbk as lb
+    INNER JOIN lab as l ON lb.labcode = l.labcode
+    INNER JOIN labresult as r ON  r.ln=lb.ln and r.lab_code_local in ('SAR','RESULT')
+    WHERE lb.labcode IN ('634','635','636','814','815','816','863','887','882') 
+    AND  lb.hn = '${hn}' 
+    GROUP BY lb.ln
+    ORDER BY lb.vstdttm DESC
+    `;
+
+    return await dbHIS.raw(sql)
+  }
 }
 

@@ -66,6 +66,13 @@ try {
             objVaccine.patient = {};
         }
 
+        const rs_lab: any = await covidVaccineModel.lab(db,hn);
+        if(rs_lab){
+            objVaccine.lab = rs_lab[0][0];
+        }else{
+            objVaccine.lab = {};
+        }
+  
         const rs_immunization_plan: any = await covidVaccineModel.immunizationPlan(db,hn);
         if(rs_immunization_plan){
             objVaccine.immunization_plan = rs_immunization_plan[0][0];
@@ -188,7 +195,16 @@ try {
                 ]
             },
             "lab":[
-      
+                {
+                "report_datetime" : objVaccine.lab.report_datetime, // วันที่-เวลา รายงาน
+                "patient_lab_ref_code" : objVaccine.lab.patient_lab_ref_code, // รหัสอ้างอิงฝั่ง HIS
+                "patient_lab_name_ref" : objVaccine.lab.patient_lab_name_ref, // ชื่อรายการ Lab ฝั่ง HIS
+                "patient_lab_normal_value_ref" : objVaccine.lab.patient_lab_normal_value_ref, //ค่าปกติของผล Lab
+                "tmlt_code" : objVaccine.lab.tmlt_code, // รหัส TMLT
+                "patient_lab_result_text" : objVaccine.lab.patient_lab_result_text, // ผลของการตรวจครั้งนี้ (ต้องมีส่วนของข้อความเป็น Positive หรือ Negative)
+                "authorized_officer_name" : objVaccine.lab.authorized_officer_name,
+                "lab_atk_fda_reg_no" : objVaccine.lab.lab_atk_fda_reg_no
+              }
             ],
             "immunization_plan":[
                 {
@@ -295,6 +311,13 @@ try {
           objVaccine.patient = {};
       }
 
+      const rs_lab: any = await covidVaccineModel.lab(db,hn);
+      if(rs_lab){
+          objVaccine.lab = rs_lab[0][0];
+      }else{
+          objVaccine.lab = {};
+      }
+
       const rs_immunization_plan: any = await covidVaccineModel.immunizationPlan(db,hn);
       if(rs_immunization_plan){
           objVaccine.immunization_plan = rs_immunization_plan[0][0];
@@ -308,7 +331,6 @@ try {
       }else{
           objVaccine.schedule=[];
       }
-
 
       const rs_visit_observation: any = await covidVaccineModel.observation(db,vn);
       if(rs_visit_observation){
@@ -414,7 +436,16 @@ try {
               ]
           },
           "lab":[
-    
+            {
+                "report_datetime" : objVaccine.lab.report_datetime, // วันที่-เวลา รายงาน
+                "patient_lab_ref_code" : objVaccine.lab.patient_lab_ref_code, // รหัสอ้างอิงฝั่ง HIS
+                "patient_lab_name_ref" : objVaccine.lab.patient_lab_name_ref, // ชื่อรายการ Lab ฝั่ง HIS
+                "patient_lab_normal_value_ref" : objVaccine.lab.patient_lab_normal_value_ref, //ค่าปกติของผล Lab
+                "tmlt_code" : objVaccine.lab.tmlt_code, // รหัส TMLT
+                "patient_lab_result_text" : objVaccine.lab.patient_lab_result_text, // ผลของการตรวจครั้งนี้ (ต้องมีส่วนของข้อความเป็น Positive หรือ Negative)
+                "authorized_officer_name" : objVaccine.lab.authorized_officer_name,
+                "lab_atk_fda_reg_no" : objVaccine.lab.lab_atk_fda_reg_no
+              }    
           ],
           "immunization_plan":[
               {
@@ -475,6 +506,110 @@ try {
   }
 
 });
+
+
+
+fastify.post('/moph-ic-lab', async (req: fastify.Request, reply: fastify.Reply) => {
+    console.log('viewVisit19-moph-ic-lab');
+    
+    const hn = req.body.hn
+    const vn = req.body.vn
+    const token = req.body.token
+
+    let objVaccine:any = {};
+    let visit:any={};
+    let schedule:any={};
+
+
+    let hospital:any = {};
+    let patient:any = {};
+    let lab:any = [];
+    let immunization_plan:any = [];
+    let visit_observation:any = {};
+
+  try {
+    const rs_hospital: any = await covidVaccineModel.hospital(db);
+    if(rs_hospital){
+      objVaccine.hospital = rs_hospital[0][0];
+
+    }else{
+      objVaccine.hospital = {};
+    }
+    const rs_patient: any = await covidVaccineModel.patient(db,hn);
+    if(rs_patient){
+          objVaccine.patient = rs_patient[0][0];
+      }else{
+          objVaccine.patient = {};
+      }
+
+      const rs_lab: any = await covidVaccineModel.lab(db,hn);
+      if(rs_lab){
+          objVaccine.lab = rs_lab[0][0];
+      }else{
+          objVaccine.lab = {};
+      }
+
+      let info = {
+          "hospital":{
+              "hospital_code":objVaccine.hospital.hospital_code,
+              "hospital_name":objVaccine.hospital.hospital_name,
+              "his_identifier" : objVaccine.hospital.his_identifier
+           },
+          "patient":{
+              "CID":objVaccine.patient.cid|| "",
+              "hn":objVaccine.patient.hn|| "",
+              "patient_guid":objVaccine.patient.patient_guid|| "",
+              "prefix":objVaccine.patient.prefix|| "",
+              "first_name":objVaccine.patient.first_name|| "",
+              "last_name":objVaccine.patient.last_name|| "",
+              "gender":objVaccine.patient.gender|| "",
+              "birth_date":moment(objVaccine.patient.birth_date).tz('Asia/Bangkok').format('YYYY-MM-DD')|| "",
+              "marital_status_id":objVaccine.patient.marital_status_id|| "",
+              "address":objVaccine.patient.address|| "",
+              "moo":objVaccine.patient.moo|| "",
+              "road":objVaccine.patient.road|| "",
+              "chw_code":objVaccine.patient.chw_code|| "",
+              "amp_code":objVaccine.patient.amp_code|| "",
+              "tmb_code":objVaccine.patient.tmb_code|| "",
+              "installed_line_connect":objVaccine.patient.installed_line_connect|| "",
+              "home_phone":objVaccine.patient.home_phone|| "",
+              "mobile_phone":objVaccine.patient.mobile_phone|| "",
+              "ncd":[
+              
+              ]
+          },
+          "lab":[{
+            "report_datetime" : objVaccine.lab.report_datetime, // วันที่-เวลา รายงาน
+            "patient_lab_ref_code" : objVaccine.lab.patient_lab_ref_code, // รหัสอ้างอิงฝั่ง HIS
+            "patient_lab_name_ref" : objVaccine.lab.patient_lab_name_ref, // ชื่อรายการ Lab ฝั่ง HIS
+            "patient_lab_normal_value_ref" : objVaccine.lab.patient_lab_normal_value_ref, //ค่าปกติของผล Lab
+            "tmlt_code" : objVaccine.lab.tmlt_code, // รหัส TMLT
+            "patient_lab_result_text" : objVaccine.lab.patient_lab_result_text, // ผลของการตรวจครั้งนี้ (ต้องมีส่วนของข้อความเป็น Positive หรือ Negative)
+            "authorized_officer_name" : objVaccine.lab.authorized_officer_name,
+            "lab_atk_fda_reg_no" : objVaccine.lab.lab_atk_fda_reg_no
+          }],
+    
+      }
+
+    //   const _token: any = await getTokenModel.select_setup(db);
+      const hcode: any = await getTokenModel.select_hcode(db);
+    //   let token : any;
+      let info_visit : any;
+      
+      if(token){
+        info_visit = await getTokenModel.insert_lab(token,info);
+      }else{
+        info_visit = {};
+      }
+
+    reply.status(HttpStatus.OK).send({ statusCode: HttpStatus.OK, info:info,info_visit:info_visit});
+  } catch (error) {
+    fastify.log.error(error);
+    reply.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ statusCode: HttpStatus.INTERNAL_SERVER_ERROR, message: HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR) })
+  }
+
+});
+
 
   next();
 

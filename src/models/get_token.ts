@@ -78,4 +78,35 @@ export class GetTokenModel {
           });
         });
       }
+
+      async insert_lab(token, info) {
+        console.log(info);
+        
+        return await new Promise((resolve: any, reject: any) => {
+          var options = {
+            method: 'POST',
+            url: `https://cvp1.moph.go.th/api/UpdateLab`,
+            agentOptions: {
+              rejectUnauthorized: false
+            },
+            headers:
+            {
+              'cache-control': 'no-cache',
+              'content-type': 'application/json',
+              'authorization': `Bearer ${token}`,
+            },
+            body: info
+            ,
+            json: true
+          };
+    
+          request(options, function (error, response, body) {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(body);
+            }
+          });
+        });
+      }
 }
