@@ -34,7 +34,7 @@ export class GetTokenModel {
       async select_setup(dbHIS: knex) {
 
         let sql = `
-        select * from hi_setup WHERE id = 14
+        select * from hi_setup WHERE common_code = 'API_USER_VACCINE'
         `;
     
         return await dbHIS.raw(sql)

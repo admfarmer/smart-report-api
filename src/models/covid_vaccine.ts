@@ -280,13 +280,51 @@ export class CovidVaccineModel {
     return await dbHIS.raw(sql)
   }
 
+  async patient_lab(dbHIS: knex, hn: any) {
+
+    let sql = `
+    select 
+    if(pt.ntnlty=99, pt.pop_id,pt.cidmophic)  as cid
+    ,passport as passport_no
+    ,if(length(pt.hn)<7,CONCAT((select setup.hcode from setup),pt.hn),pt.hn) as hn
+    , concat('{',pt_guid,'}') as patient_guid
+    ,IF(pt.pname!='',pt.pname,getPname(pt.male,timestampdiff(year,pt.brthdate,now()),pt.mrtlst)) as prefix
+    ,fname as first_name
+    ,lname as last_name
+    ,engpname as prefix_eng
+    ,engfname as first_name_eng
+    ,'' as middle_name_eng
+    ,englname as last_name_eng
+    ,male as gender
+    ,brthdate as birth_date
+    ,addrpart as address
+    ,moopart AS moo
+    ,'' as road
+    ,tmbpart as tmb_code
+    ,amppart as amp_code
+    ,chwpart as chw_code
+    ,hometel as mobile_phone
+    ,concat(addrpart,getAddress(moopart,tmbpart,amppart,chwpart)) as address_full_thai
+    ,'' as address_full_eng
+    ,nation as nationality,'' as drug_allergy
+    from 
+    pt 
+    LEFT JOIN ntnlty on pt.ntnlty=ntnlty.ntnlty
+    where pt.hn='${hn}'
+    `;
+
+    return await dbHIS.raw(sql)
+  }
+
   async lab(dbHIS: knex, hn: any) {
 
     let sql = `
     SELECT lb.senddate AS report_datetime,lb.ln AS patient_lab_ref_code,
     l.labname AS patient_lab_name_ref ,r.normal AS patient_lab_normal_value_ref,
-    l.tmlt AS tmlt_code,r.labresult AS patient_lab_result_text
-
+    IF(l.tmlt = '','351123',l.tmlt) as tmlt_code
+    ,r.labresult AS patient_lab_result_text,
+    '' as authorized_officer_name,
+    '' AS lab_atk_fda_reg_no
     FROM lbbk as lb
     INNER JOIN lab as l ON lb.labcode = l.labcode
     INNER JOIN labresult as r ON  r.ln=lb.ln and r.lab_code_local in ('SAR','RESULT')
