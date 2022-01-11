@@ -195,7 +195,16 @@ try {
                 ]
             },
             "lab":[
-
+                {
+                "report_datetime" : objVaccine.lab.report_datetime, // วันที่-เวลา รายงาน
+                "patient_lab_ref_code" : objVaccine.lab.patient_lab_ref_code, // รหัสอ้างอิงฝั่ง HIS
+                "patient_lab_name_ref" : objVaccine.lab.patient_lab_name_ref, // ชื่อรายการ Lab ฝั่ง HIS
+                "patient_lab_normal_value_ref" : objVaccine.lab.patient_lab_normal_value_ref, //ค่าปกติของผล Lab
+                "tmlt_code" : objVaccine.lab.tmlt_code, // รหัส TMLT
+                "patient_lab_result_text" : objVaccine.lab.patient_lab_result_text, // ผลของการตรวจครั้งนี้ (ต้องมีส่วนของข้อความเป็น Positive หรือ Negative)
+                "authorized_officer_name" : objVaccine.lab.authorized_officer_name,
+                "lab_atk_fda_reg_no" : objVaccine.lab.lab_atk_fda_reg_no
+              }
             ],
             "immunization_plan":[
                 {
