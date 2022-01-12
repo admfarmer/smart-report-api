@@ -327,9 +327,15 @@ export class CovidVaccineModel {
     ,IF(l.tmlt = '',IF(lb.labcode in ('863','887'),'351123','350509'),l.tmlt) as tmlt_code
     ,r.labresult AS patient_lab_result_text,
     if(substr(approve,1,2) = 'NU',concat(lp.prename,d.fname,' ',d.lname),lb.approve) as authorized_officer_name,
-    '' AS lab_atk_fda_reg_no
+		case 
+		when co.objective=1 then "T6400127"
+		when co.objective=2 then  "T6400119"
+		when co.objective=3 then  "T6400165"
+		when co.objective=4 then  "T6400191"
+		END  AS lab_atk_fda_reg_no
     FROM lbbk as lb
     INNER JOIN lab as l ON lb.labcode = l.labcode
+		INNER JOIN lab_co_mapping co ON l.labcode=co.labcode
     INNER JOIN labresult as r ON  r.ln=lb.ln and r.lab_code_local in ('SAR','RESULT')
     left join dct as d on substr(lb.approve,3,2) = d.dct
     left join l_prename as lp on d.pname=lp.prename_code
