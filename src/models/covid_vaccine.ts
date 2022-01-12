@@ -319,19 +319,24 @@ export class CovidVaccineModel {
   async lab(dbHIS: knex, hn: any) {
 
     let sql = `
-    SELECT lb.senddate AS report_datetime,lb.ln AS patient_lab_ref_code,
-    l.labname AS patient_lab_name_ref ,r.normal AS patient_lab_normal_value_ref,
-    IF(l.tmlt = '','351123',l.tmlt) as tmlt_code
+    SELECT 
+    lb.senddate AS report_datetime
+    ,lb.ln AS patient_lab_ref_code
+    ,l.labname AS patient_lab_name_ref 
+    ,r.normal AS patient_lab_normal_value_ref
+    ,IF(l.tmlt = '',IF(lb.labcode in ('863','887'),'351123','350509'),l.tmlt) as tmlt_code
     ,r.labresult AS patient_lab_result_text,
-    '' as authorized_officer_name,
+    if(substr(approve,1,2) = 'NU',concat(lp.prename,d.fname,' ',d.lname),lb.approve) as authorized_officer_name,
     '' AS lab_atk_fda_reg_no
     FROM lbbk as lb
     INNER JOIN lab as l ON lb.labcode = l.labcode
     INNER JOIN labresult as r ON  r.ln=lb.ln and r.lab_code_local in ('SAR','RESULT')
-    WHERE lb.labcode IN ('634','635','636','814','815','816','863','887','882') 
+    left join dct as d on substr(lb.approve,3,2) = d.dct
+    left join l_prename as lp on d.pname=lp.prename_code
+    WHERE lb.labcode IN ('634','934','863','887') 
     AND  lb.hn = '${hn}' 
     GROUP BY lb.ln
-    ORDER BY lb.vstdttm DESC
+    ORDER BY lb.vstdttm DESC;
     `;
 
     return await dbHIS.raw(sql)
