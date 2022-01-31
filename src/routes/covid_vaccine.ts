@@ -648,7 +648,9 @@ fastify.post('/mophic-lab', async (req: fastify.Request, reply: fastify.Reply) =
 
 try {
   
-  const token: any = await getTokenModel.select_Token(db);
+  const token_: any = await getTokenModel.select_Token(db);
+  console.log(token_[0][0].values5);
+  const token: any = token_[0][0].values5;
   const rs_hospital: any = await covidVaccineModel.hospital(db);
   
   if(rs_hospital){
