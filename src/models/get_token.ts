@@ -109,4 +109,12 @@ export class GetTokenModel {
           });
         });
       }
+      async select_Token(dbHIS: knex) {
+
+        let sql = `
+        select s.values5 from hi_setup s WHERE s.common_code = 'API_VACCINE_Token'
+        `;
+    
+        return await dbHIS.raw(sql)
+      }
 }
