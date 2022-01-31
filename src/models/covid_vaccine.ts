@@ -347,5 +347,12 @@ export class CovidVaccineModel {
 
     return await dbHIS.raw(sql)
   }
+
+  async select_hn(dbHIS: knex, cid: any) {
+    let sql = `
+    select pt.hn from pt where pt.pop_id = ${cid}
+    `;
+    return await dbHIS.raw(sql)
+  }
 }
 

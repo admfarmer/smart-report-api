@@ -628,11 +628,11 @@ fastify.post('/moph-ic-lab', async (req: fastify.Request, reply: fastify.Reply) 
 });
 
 
-fastify.post('/mophic-lab', async (req: fastify.Request, reply: fastify.Reply) => {
+fastify.get('/mophic-lab/:cid', async (req: fastify.Request, reply: fastify.Reply) => {
   console.log('viewVisit19-moph-ic-lab');
   
-  const hn = req.body.hn
-  const vn = req.body.vn
+  const cid = req.params.cid
+  // const vn = req.body.vn
   // const token = req.body.token
 
   let objVaccine:any = {};
@@ -649,10 +649,12 @@ fastify.post('/mophic-lab', async (req: fastify.Request, reply: fastify.Reply) =
 try {
   
   const token_: any = await getTokenModel.select_Token(db);
-  console.log(token_[0][0].values5);
+  // console.log(token_[0][0].values5);
   const token: any = token_[0][0].values5;
   const rs_hospital: any = await covidVaccineModel.hospital(db);
-  
+  const rs_hn: any = await covidVaccineModel.select_hn(db,cid);
+  const hn: any = rs_hn[0][0].hn;
+
   if(rs_hospital){
     objVaccine.hospital = rs_hospital[0][0];
 
