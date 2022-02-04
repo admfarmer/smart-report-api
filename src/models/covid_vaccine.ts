@@ -324,7 +324,7 @@ export class CovidVaccineModel {
     ,lb.ln AS patient_lab_ref_code
     ,l.labname AS patient_lab_name_ref 
     ,r.normal AS patient_lab_normal_value_ref
-    ,IF(l.tmlt = '',IF(lb.labcode in ('863','887'),'351123','350509'),l.tmlt) as tmlt_code
+    ,IF(l.tmlt = '',IF(lb.labcode in ('863','887','904','905'),'351122','351123'),l.tmlt) as tmlt_code ,
     ,r.labresult AS patient_lab_result_text,
     if(substr(approve,1,2) = 'NU',concat(lp.prename,d.fname,' ',d.lname),lb.approve) as authorized_officer_name,
 		case 
@@ -339,7 +339,7 @@ export class CovidVaccineModel {
     INNER JOIN labresult as r ON  r.ln=lb.ln and r.lab_code_local in ('SAR','RESULT')
     left join dct as d on substr(lb.approve,3,2) = d.dct
     left join l_prename as lp on d.pname=lp.prename_code
-    WHERE lb.labcode IN ('634','934','863','887') 
+    WHERE lb.labcode IN ('634','934','863','887','904','905')  
     AND  lb.hn = '${hn}' 
     GROUP BY lb.ln
     ORDER BY lb.vstdttm DESC;
