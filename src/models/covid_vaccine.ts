@@ -312,6 +312,7 @@ export class CovidVaccineModel {
     LEFT JOIN ntnlty on pt.ntnlty=ntnlty.ntnlty
     where pt.hn='${hn}'
     `;
+    // console.log(sql);
 
     return await dbHIS.raw(sql)
   }
@@ -344,6 +345,7 @@ export class CovidVaccineModel {
     GROUP BY lb.ln
     ORDER BY lb.vstdttm DESC;
     `;
+    // console.log(sql);
 
     return await dbHIS.raw(sql)
   }

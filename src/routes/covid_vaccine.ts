@@ -670,7 +670,17 @@ try {
 
     const rs_lab: any = await covidVaccineModel.lab(db,hn);
     if(rs_lab[0][0]){
-        objVaccine.lab = rs_lab[0];
+      // objVaccine.lab = rs_lab[0];
+      objVaccine.lab = {
+        "report_datetime" : moment(rs_lab[0].report_datetime).tz('Asia/Bangkok').format('YYYY-MM-DD'),
+        "patient_lab_ref_code" :  rs_lab[0].patient_lab_ref_code,
+        "patient_lab_name_ref" : rs_lab[0].patient_lab_name_ref,
+        "patient_lab_normal_value_ref" :  rs_lab[0].patient_lab_normal_value_ref,
+        "tmlt_code" :  rs_lab[0].tmlt_code,
+        "patient_lab_result_text" :  rs_lab[0].patient_lab_result_text,
+        "authorized_officer_name" : rs_lab[0].authorized_officer_name,
+        "lab_atk_fda_reg_no" :  rs_lab[0].lab_atk_fda_reg_no
+      }
     }else{
         objVaccine.lab = {
           "report_datetime" : "", // วันที่-เวลา รายงาน
