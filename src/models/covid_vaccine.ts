@@ -324,7 +324,7 @@ export class CovidVaccineModel {
     lb.senddate AS report_datetime
     ,lb.ln AS patient_lab_ref_code
     ,l.labname AS patient_lab_name_ref 
-    ,r.normal AS patient_lab_normal_value_ref
+    ,'' AS patient_lab_normal_value_ref
     ,IF(l.tmlt = '',IF(lb.labcode in ('634','934','904','905'),'351123','351122'),l.tmlt) as tmlt_code
     ,r.labresult AS patient_lab_result_text,
     if(substr(approve,1,2) = 'NU',concat(lp.prename,d.fname,' ',d.lname),lb.approve) as authorized_officer_name,
