@@ -68,13 +68,12 @@ export class ViewsAdmitModel {
     inner join pt as p on o.hn=p.hn 
     where o.an < 1
     and ovstdx.icd10 in ('U071','U129','U072','U10','U109') 
-		and (xryrgt.xrycode = '0147' or xryrqt.xrycode = '0147')
 		and date(o.vstdttm) = CURRENT_DATE
     group by o.hn ORDER BY o.vn
     `;
     return await dbHIS.raw(sql)
   }
-
+//	-- and (xryrgt.xrycode = '0147' or xryrqt.xrycode = '0147')
   async viewCoWardVn(dbHIS: knex,hn:any) {
     let sql = `
     SELECT vn  FROM ovst WHERE hn =  ${hn} 	ORDER BY vn desc limit 1
