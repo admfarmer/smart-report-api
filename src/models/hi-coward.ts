@@ -31,7 +31,7 @@ export class ViewsAdmitModel {
     inner join hi.iptdx as iptdx on iptdx.an = i.an 
     inner join hi.pt as p on i.hn=p.hn 
     where i.an > ${an} -- an ล่าสุดที่ admit 
-    and iptdx.icd10 in ('U071')
+    and iptdx.icd10 in ('U071','U072','U10','U109')
     group by an
     `;
     return await dbHIS.raw(sql)
@@ -67,7 +67,7 @@ export class ViewsAdmitModel {
     inner join ovstdx as ovstdx on ovstdx.vn = o.vn
     inner join pt as p on o.hn=p.hn 
     where o.an < 1
-    and ovstdx.icd10 in ('U071','U129') 
+    and ovstdx.icd10 in ('U071','U129','U072','U10','U109') 
 		and (xryrgt.xrycode = '0147' or xryrqt.xrycode = '0147')
 		and date(o.vstdttm) = CURRENT_DATE
     group by o.hn ORDER BY o.vn
