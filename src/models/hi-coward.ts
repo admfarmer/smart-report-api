@@ -62,8 +62,8 @@ export class ViewsAdmitModel {
     ,'5' as ward_id
     ,date(o.vstdttm) as vstdttm
     from ovst as o
-		inner join xryrgt on xryrgt.vn=o.vn 
-    inner join xryrqt on xryrqt.vn=o.vn
+		-- inner join xryrgt on xryrgt.vn=o.vn 
+    -- inner join xryrqt on xryrqt.vn=o.vn
     inner join ovstdx as ovstdx on ovstdx.vn = o.vn
     inner join pt as p on o.hn=p.hn 
     where o.an < 1
