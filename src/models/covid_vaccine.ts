@@ -171,23 +171,23 @@ export class CovidVaccineModel {
     ,h.namehpt as vaccine_ref_name
     ,e.serial_no as serial_no
     ,s.treat_no as vaccine_plan_no
-    ,(case when h.vac in ('CA1','CA2','CA3') then 1 
-		when h.vac in ('CN1','CN2','CN3') then 2
-		when h.vac in ('CJ1','CJ2','CJ3') then 3
-		when h.vac in ('CG1','CG2','CG3') then 4
-		when h.vac in ('CM1','CM2','CM3') then 5
-		when h.vac in ('CP1','CP2','CP3') then 6
-		when h.vac in ('CS1','CS2','CS3') then 7
-    when h.vac in ('CI1','CI2','CI3') then 8
+    ,(case when h.vac in ('CA1','CA2','CA3','CA4','CA5') then 1 
+		when h.vac in ('CN1','CN2','CN3','CN4','CN5') then 2
+		when h.vac in ('CJ1','CJ2','CJ3','CJ4','CJ5') then 3
+		when h.vac in ('CG1','CG2','CG3','CG4','CG5') then 4
+		when h.vac in ('CM1','CM2','CM3','CM4','CM5') then 5
+		when h.vac in ('CP1','CP2','CP3','CP4','CP5') then 6
+		when h.vac in ('CS1','CS2','CS3','CS4','CS5') then 7
+    when h.vac in ('CI1','CI2','CI3','CI4','CI5') then 8
     end) as vaccine_manufacturer_id
-    ,(case when h.vac in ('CA1','CA2','CA3') then 'AstraZeneca' 
-		when h.vac in ('CN1','CN2','CN3') then 'Novavax'
-		when h.vac in ('CJ1','CJ2','CJ3') then 'Johnson & Johnson' 
-		when h.vac in ('CG1','CG2','CG3') then 'Sanofi, GlaxoSmithKline' 
-		when h.vac in ('CM1','CM2','CM3') then 'Moderna' 
-		when h.vac in ('CP1','CP2','CP3') then 'Pfizer, BioNTech' 
-		when h.vac in ('CS1','CS2','CS3') then 'Sinovac Life Sciences' 
-    when h.vac in ('CI1','CI2','CI3') then 'Sinopharm' 
+    ,(case when h.vac in ('CA1','CA2','CA3','CA4','CA5') then 'AstraZeneca' 
+		when h.vac in ('CN1','CN2','CN3','CN4','CN5') then 'Novavax'
+		when h.vac in ('CJ1','CJ2','CJ3','CJ4','CJ5') then 'Johnson & Johnson' 
+		when h.vac in ('CG1','CG2','CG3','CG4','CG5') then 'Sanofi, GlaxoSmithKline' 
+		when h.vac in ('CM1','CM2','CM3','CM4','CM5') then 'Moderna' 
+		when h.vac in ('CP1','CP2','CP3','CP4','CP5') then 'Pfizer, BioNTech' 
+		when h.vac in ('CS1','CS2','CS3','CS4','CS5') then 'Sinovac Life Sciences' 
+    when h.vac in ('CI1','CI2','CI3','CI4','CI5') then 'Sinopharm' 
     end) as vaccine_manufacturer
     ,p.plan_id as immunization_plan_ref_code
     ,s.schedule_id as immunization_plan_schedule_ref_code

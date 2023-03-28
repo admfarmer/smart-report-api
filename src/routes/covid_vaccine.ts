@@ -474,6 +474,7 @@ try {
                     "vaccine_note":objVaccine.visit_immunization.vaccine_note|| "",
                     "vaccine_ref_name":objVaccine.visit_immunization.vaccine_ref_name|| "",
                     "serial_no":objVaccine.visit_immunization.serial_no|| "",
+                    "vaccine_manufacturer_id" : objVaccine.visit_immunization.vaccine_manufacturer_id|| "" ,
                     "vaccine_manufacturer" : objVaccine.visit_immunization.vaccine_manufacturer|| "" ,
                     "vaccine_plan_no":objVaccine.visit_immunization.vaccine_plan_no|| "" ,
                     "vaccine_route_name":objVaccine.visit_immunization.vaccine_route_name|| "" ,
@@ -491,6 +492,8 @@ try {
       const hcode: any = await getTokenModel.select_hcode(db);
     //   let token : any;
       let info_visit : any;
+      console.log(info);
+      
       
       if(token){
         info_visit = await getTokenModel.insert_covid(token,info);
