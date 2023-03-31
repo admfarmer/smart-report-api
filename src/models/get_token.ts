@@ -11,9 +11,11 @@ export class GetTokenModel {
             "password_hash":password_hash,
             "hospital_code":hospital_code        
           }
+          // console.log(info);
+          
           var options = {
             method: 'POST',
-            url: `https://cvp1.moph.go.th/token`,
+            url: `https://cvp1.moph.go.th/token?Action=get_moph_access_token`,
             agentOptions: {
               rejectUnauthorized: false
             },
@@ -27,8 +29,7 @@ export class GetTokenModel {
             json: true
           };
           // console.log(options);
-          
-          request(options, function (error, response, body) {
+          request(options, function (error, response, body) {            
             if (error) {
               reject(error);
             } else {
