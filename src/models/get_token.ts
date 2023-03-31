@@ -6,10 +6,14 @@ export class GetTokenModel {
 
     async select(user:any,password_hash:any,hospital_code:any) {
         return await new Promise((resolve: any, reject: any) => {
-
+          var info = {
+            "user":user,
+            "password_hash":password_hash,
+            "hospital_code":hospital_code        
+          }
           var options = {
-            method: 'GET',
-            url: `https://cvp1.moph.go.th/token?Action=get_moph_access_token&user=${user}&password_hash=${password_hash}&hospital_code=${hospital_code}`,
+            method: 'POST',
+            url: `https://cvp1.moph.go.th/token`,
             agentOptions: {
               rejectUnauthorized: false
             },
@@ -18,6 +22,8 @@ export class GetTokenModel {
               'cache-control': 'no-cache',
               'content-type': 'application/json',
             },
+            body: info
+            ,
             json: true
           };
           // console.log(options);
